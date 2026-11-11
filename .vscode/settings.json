@@ -1,0 +1,9 @@
+
+{
+  "deno.enable": true,
+  "deno.enablePaths": [
+    "./supabase/functions/accept-invite",
+    "./supabase/functions/invite-member"
+  ],
+  "deno.lint": true
+}

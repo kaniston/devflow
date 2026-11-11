@@ -1,18 +1,304 @@
 
 @import "tailwindcss";
 
+/* =========================================
+   DEVFLOW — GRAPHITE & COPPER DESIGN SYSTEM
+   ========================================= */
+
 :root {
-  font-family: Inter, system-ui, sans-serif;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+
+  --df-bg: #191B1D;
+  --df-surface: #292D30;
+  --df-elevated: #32373A;
+  --df-copper: #C47B50;
+  --df-copper-light: #E9B28D;
+
+  --df-text: #F2F0ED;
+  --df-text-secondary: #A5A5A2;
+  --df-text-muted: #777D80;
+
+  --df-border: #3B4145;
+  --df-success: #55B88A;
+  --df-warning: #E6AD58;
+  --df-danger: #E47770;
+  --df-info: #83A9D1;
+
+  color-scheme: dark;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--df-bg);
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--df-bg);
+  color: var(--df-text);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   GLOBAL TYPOGRAPHY
+   ========================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--df-text);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+p {
+  color: var(--df-text-secondary);
+}
+
+::selection {
+  background: rgba(196, 123, 80, 0.35);
+  color: #FFFFFF;
+}
+
+/* =========================================
+   GLOBAL FORM CONTROLS
+   ========================================= */
+
+input,
+textarea,
+select {
+  color: var(--df-text);
+  background-color: var(--df-surface);
+  border-color: var(--df-border);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--df-text-muted);
+  opacity: 1;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--df-copper) !important;
+  box-shadow: 0 0 0 3px rgba(196, 123, 80, 0.16) !important;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: var(--df-elevated);
+  color: var(--df-text-muted);
+  cursor: not-allowed;
+}
+
+/* =========================================
+   TRANSITIONS
+   ========================================= */
+
+button,
+a,
+input,
+textarea,
+select {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================
+   EXISTING TAILWIND CLASS COMPATIBILITY
+   These overrides gradually restyle existing
+   pages without changing their functionality.
+   ========================================= */
+
+.bg-white {
+  background-color: var(--df-surface) !important;
+}
+
+.bg-slate-50 {
+  background-color: var(--df-bg) !important;
+}
+
+.bg-slate-100 {
+  background-color: var(--df-elevated) !important;
+}
+
+.text-slate-900,
+.text-slate-800 {
+  color: var(--df-text) !important;
+}
+
+.text-slate-700 {
+  color: #D7D5D1 !important;
+}
+
+.text-slate-600,
+.text-slate-500 {
+  color: var(--df-text-secondary) !important;
+}
+
+.text-slate-400 {
+  color: var(--df-text-muted) !important;
+}
+
+.border-slate-100,
+.border-slate-200,
+.border-slate-300 {
+  border-color: var(--df-border) !important;
+}
+
+/* Copper brand buttons and accents */
+
+.bg-indigo-600 {
+  background-color: var(--df-copper) !important;
+}
+
+.bg-indigo-500 {
+  background-color: var(--df-copper) !important;
+}
+
+.hover\:bg-indigo-700:hover {
+  background-color: #A96540 !important;
+}
+
+.text-indigo-700,
+.text-indigo-600,
+.text-indigo-500 {
+  color: var(--df-copper-light) !important;
+}
+
+.border-indigo-600,
+.border-indigo-500 {
+  border-color: var(--df-copper) !important;
+}
+
+.bg-indigo-50 {
+  background-color: rgba(196, 123, 80, 0.14) !important;
+}
+
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--df-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #454B4F;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--df-copper);
+}
+
+/* =========================================
+   REUSABLE DEVFLOW SURFACES
+   ========================================= */
+
+.df-panel {
+  background: var(--df-surface);
+  border: 1px solid var(--df-border);
+  border-radius: 12px;
+}
+
+.df-panel-hover {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.df-panel-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(196, 123, 80, 0.55);
+}
+
+.df-primary-button {
+  background: var(--df-copper);
+  color: #191B1D;
+  border: 1px solid var(--df-copper);
+  border-radius: 9px;
+  font-weight: 600;
+}
+
+.df-primary-button:hover {
+  background: #D18A5F;
+  border-color: #D18A5F;
+}
+
+.df-secondary-button {
+  background: var(--df-elevated);
+  color: var(--df-text);
+  border: 1px solid var(--df-border);
+  border-radius: 9px;
+}
+
+.df-secondary-button:hover {
+  background: #3B4145;
+}
+
+/* =========================================
+   RESPONSIVE BASELINE
+   ========================================= */
+
+img,
+svg {
+  max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

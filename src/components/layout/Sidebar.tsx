@@ -1,5 +1,5 @@
 
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   FolderKanban,
@@ -7,76 +7,133 @@ import {
   Bug,
   Users,
   Settings,
-  Zap,
-} from 'lucide-react'
+  LogOut,
+  X,
+  Code2,
+} from "lucide-react";
+import { supabase } from "../../lib/supabase";
+
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
 
 const navigation = [
-  { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-  { name: 'Projects', path: '/projects', icon: FolderKanban },
-  { name: 'My Tasks', path: '/tasks', icon: CheckSquare },
-  { name: 'Issues', path: '/issues', icon: Bug },
-  { name: 'Team', path: '/team', icon: Users },
-]
+  { name: "Dashboard", path: "/", icon: LayoutDashboard },
+  { name: "Projects", path: "/projects", icon: FolderKanban },
+  { name: "My Tasks", path: "/tasks", icon: CheckSquare },
+  { name: "Issue Tracker", path: "/issues", icon: Bug },
+  { name: "Team Workspace", path: "/team", icon: Users },
+];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }: SidebarProps) {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    onClose();
+    navigate("/login", { replace: true });
+  };
+
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-slate-800 bg-slate-950 text-white">
-
-      <div className="flex h-20 items-center gap-3 border-b border-slate-800 px-6">
-        <div className="rounded-xl bg-blue-600 p-2">
-          <Zap size={22} />
+    <aside
+      className={`
+        fixed inset-y-0 left-0 z-50
+        flex h-screen w-64 flex-col
+        border-r border-[#3B4145]
+        bg-[#292D30] text-[#F2F0ED]
+        transform transition-transform duration-300 ease-in-out
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        md:translate-x-0
+      `}
+    >
+      {/* Brand */}
+      <div className="flex h-20 items-center justify-between border-b border-[#3B4145] px-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#C47B50]">
+            <Code2 size={22} className="text-[#191B1D]" />
+          </div>
+          <div>
+            <h1 className="text-lg font-bold tracking-wide">DevFlow</h1>
+            <p className="text-xs text-[#A5A5A2]">Developer Workspace</p>
+          </div>
         </div>
-        <span className="text-xl font-bold tracking-tight">
-          DevFlow
-        </span>
+
+        {/* Close button only on mobile */}
+        <button
+          onClick={onClose}
+          className="rounded-lg p-2 text-[#A5A5A2] hover:bg-[#3B4145] md:hidden"
+          aria-label="Close navigation menu"
+        >
+          <X size={21} />
+        </button>
       </div>
 
-      <div className="px-4 py-6">
-        <p className="mb-4 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+      {/* Navigation */}
+      <nav className="flex-1 space-y-2 overflow-y-auto px-4 py-6">
+        <p className="mb-4 px-3 text-xs font-semibold uppercase tracking-widest text-[#777D80]">
           Workspace
         </p>
 
-        <nav className="space-y-2">
-          {navigation.map((item) => {
-            const Icon = item.icon
+        {navigation.map((item) => {
+          const Icon = item.icon;
 
-            return (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                end={item.path === '/'}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition ${
-                    isActive
-                      ? 'bg-blue-600 text-white'
-                      : 'text-slate-400 hover:bg-slate-800 hover:text-white'
-                  }`
-                }
-              >
-                <Icon size={19} />
-                {item.name}
-              </NavLink>
-            )
-          })}
-        </nav>
-      </div>
+          return (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.path === "/"}
+              onClick={onClose}
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-[#C47B50]/15 text-[#E9B28D]"
+                    : "text-[#A5A5A2] hover:bg-[#32373A] hover:text-[#F2F0ED]"
+                }`
+              }
+            >
+              <Icon size={19} />
+              <span>{item.name}</span>
+            </NavLink>
+          );
+        })}
+      </nav>
 
-      <div className="mt-auto p-4">
+      {/* Bottom section */}
+      <div className="space-y-2 border-t border-[#3B4145] p-4">
         <NavLink
           to="/settings"
-          className="flex items-center gap-3 rounded-lg px-3 py-3 text-sm text-slate-400 hover:bg-slate-800 hover:text-white"
+          onClick={onClose}
+          className={({ isActive }) =>
+            `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
+              isActive
+                ? "bg-[#C47B50]/15 text-[#E9B28D]"
+                : "text-[#A5A5A2] hover:bg-[#32373A] hover:text-[#F2F0ED]"
+            }`
+          }
         >
           <Settings size={19} />
           Settings
         </NavLink>
 
-        <div className="mt-4 rounded-xl bg-slate-900 p-4">
-          <p className="text-sm font-semibold">DevFlow Pro</p>
-          <p className="mt-1 text-xs text-slate-400">
-            Your workspace is ready.
-          </p>
-        </div>
+        <button
+          onClick={handleLogout}
+          className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-[#E47770] transition-colors hover:bg-[#E47770]/10"
+        >
+          <LogOut size={19} />
+          Sign Out
+        </button>
+
+        <p className="px-3 pt-2 text-xs text-[#777D80]">
+          DevFlow Workspace
+        </p>
       </div>
     </aside>
-  )
+  );
 }
