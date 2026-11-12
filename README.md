@@ -1,75 +1,145 @@
-# React + TypeScript + Vite
+# DevFlow — Collaborative Project Management & Developer Workspace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern project management platform designed to help development teams organize projects, manage tasks, track issues, and collaborate through a centralized workspace.
 
-Currently, two official plugins are available:
+🔗 **Live Demo:** https://devflow-kaniston.vercel.app/  
+📂 **GitHub Repository:** https://github.com/kaniston/devflow
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+DevFlow is a responsive web application built to simplify project and task management. It provides a centralized dashboard where users can manage projects, organize tasks, track issues, and manage team workspace membership.
 
-## Expanding the ESLint configuration
+The application combines a modern interface with Supabase authentication and database integration.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Dashboard:** Overview of projects, tasks, and workspace activity.
+- **Authentication:** User registration, login, and protected routes.
+- **Project Management:** Create, view, and manage projects.
+- **Task Management:** Organize and track tasks.
+- **Issue Tracking:** Manage and monitor project issues.
+- **Team Management:** View team members, roles, and invitations.
+- **Workspace Invitations:** Invite members with role-based access.
+- **Responsive Design:** Optimized for desktop, tablet, and mobile devices.
+- **Database Integration:** Supabase-powered backend and data storage.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Category | Technologies |
+|---|---|
+| Frontend | React, TypeScript |
+| Build Tool | Vite |
+| Styling | Tailwind CSS v4 |
+| Backend | Supabase |
+| Database | PostgreSQL |
+| Authentication | Supabase Auth |
+| Serverless Functions | Supabase Edge Functions |
+| Routing | React Router |
+| Version Control | Git & GitHub |
+| Deployment | Vercel |
 
+## 📸 Application Modules
+
+- Dashboard
+- Projects
+- Tasks
+- Issues
+- Team Management
+- Authentication
+
+## ⚙️ Getting Started
+
+Follow these steps to run DevFlow locally.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/kaniston/devflow.git
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Navigate to the project folder
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+cd devflow
 ```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Configure environment variables
+
+Create a `.env.local` file in the project root:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_publishable_key
+```
+
+Replace the placeholder values with your own Supabase project credentials.
+
+**Important:** Never expose your Supabase service-role key or other secret keys in frontend environment variables.
+
+### 5. Start the development server
+
+```bash
+npm run dev
+```
+
+Open the local URL displayed in your terminal.
+
+### 6. Build for production
+
+```bash
+npm run build
+```
+
+## 🗄️ Backend Configuration
+
+DevFlow uses Supabase for:
+
+- User authentication
+- PostgreSQL database
+- Workspace and membership management
+- Invitation handling through Edge Functions
+- Database access policies
+
+To run the complete application, configure the required Supabase tables, authentication settings, access policies, and Edge Functions.
+
+## 📱 Responsive Design
+
+DevFlow is designed to support:
+
+- Desktop screens
+- Tablets
+- Mobile devices
+
+## 🔐 Security
+
+- Supabase authentication
+- Protected application routes
+- Environment-based configuration
+- Database Row Level Security (RLS)
+- Role-based workspace membership and invitation handling
+
+## 🎯 Project Objective
+
+The objective of DevFlow is to develop a modern, full-stack project management application while gaining practical experience in frontend development, backend integration, authentication, database management, and deployment.
+
+## 👨‍💻 Developer
+
+**Kaniston S**  
+B.Sc. Computer Science Student  
+Loyola College
+
+Interested in full-stack development, software engineering, and building practical applications.
+
+---
+
+⭐ If you find this project interesting, feel free to explore the repository!
+
+**Built with React, TypeScript, and Supabase.**
